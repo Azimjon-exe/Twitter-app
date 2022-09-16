@@ -6,6 +6,11 @@ import SearchPanel from "../SearchPanel";
 import "./App.css";
 
 function App() {
+  const data = [
+    { label: "Going to Learn React JS", important: true, id: "ab" },
+    { label: "Lets  gooo", important: false, id: "ac" },
+    { label: "Hi", important: false, id: "ad" },
+  ];
   return (
     <div className="app">
       <AppHeader />
@@ -13,7 +18,7 @@ function App() {
         <SearchPanel />
         <Postfilter />
       </div>
-      <PostList />
+      <PostList posts={data} />
       <PostAddForm />
     </div>
   );
