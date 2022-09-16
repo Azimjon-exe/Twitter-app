@@ -2,3 +2,11 @@
 .important .fa-star {
   color: rgb(219, 194, 5);
 }
+.fa-heart {
+  color: rgba(128, 128, 128, 0.434);
+}
+.like .fa-heart {
+  color: crimson;
+  transition: 1s;
+  transform: rotate(360deg);
+}
