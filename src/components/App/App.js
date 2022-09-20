@@ -30,6 +30,8 @@ export default class App extends React.Component {
           id: 3,
         },
       ],
+      term: "",
+      filter: "all",
     };
 
     this.maxL = 4;
@@ -37,6 +39,8 @@ export default class App extends React.Component {
     this.addItem = this.addItem.bind(this);
     this.onToggleImportant = this.onToggleImportant.bind(this);
     this.onToggleLike = this.onToggleLike.bind(this);
+    this.onUpdateSearch = this.onUpdateSearch.bind(this);
+    this.onFilterSelect = this.onFilterSelect.bind(this);
   }
   deleteItem(id) {
     this.setState(({ data }) => {
@@ -98,17 +102,44 @@ export default class App extends React.Component {
       };
     });
   }
+
+  searchPost(items, term) {
+    if (term.length === 0) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      return item.label.toLowerCase().indexOf(term) > -1;
+    });
+  }
+  onUpdateSearch(term) {
+    this.setState({ term });
+  }
+
+  onFilterSelect(filter) {
+    this.setState({ filter });
+  }
+
+  filterPost(items, filter) {
+    if (filter === "like") {
+      return items.filter((item) => item.like);
+    } else {
+      return items;
+    }
+  }
   render() {
+    const { data, term, filter } = this.state;
     const liked = this.state.data.filter((item) => item.like).length;
+    const visibelePosts = this.filterPost(this.searchPost(data, term), filter);
     return (
       <div className="app">
         <AppHeader postL={this.state.data.length} liked={liked} />
         <div className="search-panel d-flex">
-          <SearchPanel />
-          <Postfilter />
+          <SearchPanel onUpdateSearch={this.onUpdateSearch} />
+          <Postfilter filter={filter} onFilterSelect={this.onFilterSelect} />
         </div>
         <PostList
-          posts={this.state.data}
+          posts={visibelePosts}
           onDelete={this.deleteItem}
           onToggleImportant={this.onToggleImportant}
           onToggleLike={this.onToggleLike}
