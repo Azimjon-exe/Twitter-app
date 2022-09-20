@@ -1,3 +1,9 @@
+.app-list-item {
+  border: 1px solid rgba(128, 128, 128, 0.57);
+  margin: 10px 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
 .important .app-list-item-label,
 .important .fa-star {
   color: rgb(219, 194, 5);
